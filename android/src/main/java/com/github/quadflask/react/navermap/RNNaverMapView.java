@@ -71,6 +71,10 @@ public class RNNaverMapView extends MapView implements OnMapReadyCallback, Naver
                 lastTouch = System.currentTimeMillis();
             }
         });
+        naverMap.addOnOptionChangeListener(() -> {
+            LocationTrackingMode mode = naverMap.getLocationTrackingMode();
+            locationSource.setCompassEnabled(mode == LocationTrackingMode.Follow || mode == LocationTrackingMode.Face);
+        });
         naverMapSdk.flushCache(() -> Log.i("NaverMap", "Map Cache Clean"));
         onInitialized();
     }
